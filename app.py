@@ -14,6 +14,8 @@ if not os.path.exists(app.config['UPLOAD_FOLDER']):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    top_words = []
+    bottom_words = []
     sorted_words = None
     if request.method == 'POST':
         # Get the file from the POST request

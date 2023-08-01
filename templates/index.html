@@ -1,23 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Word Count</title>
+    <meta charset="UTF-8">
+    <title>Word Counter</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <!-- Import fonts and other styles from ref 1 index.html head -->
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js" integrity="sha512-Kef5sc7gfTacR7TZKelcrRs15ipf7+t+n7Zh6mKNJbmW+/RRdCW9nwfLn4YX0s2nO6Kv5Y2ChqgIakaC6PW09A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+    <a href="https://Adityav.au" target="_blank">
+        <img class="logo" src="https://adityav.au/dist/img/logo.png" alt="Adityav Logo" style="width: 20%; height: auto">
+    </a>
+    <div id="particles-js"></div>
+
     <h1>Word Count</h1>
 
     <form method="POST" enctype="multipart/form-data">
-        <input type="file" name="file">
+        <label for="file">Choose file</label>
+        <input type="file" id="file" name="file">
+        <span id="file-name"></span>
         <input type="submit" value="Upload">
     </form>
 
-    {% if sorted_words %}
-        <h2>Results</h2>
-        <ul>
-        {% for word, count in sorted_words %}
-            <li>{{ word }}: {{ count }}</li>
+    <h1>Top 10 Words</h1>
+        {% for word, count in top_words %}
+        <p>{{ word }}: {{ count }}</p>
         {% endfor %}
-        </ul>
-    {% endif %}
+
+        <h1>Bottom 10 Words</h1>
+        {% for word, count in bottom_words %}
+        <p>{{ word }}: {{ count }}</p>
+        {% endfor %}
+    <script>
+        particlesJS.load('particles-js', '/static/particles.json', function() {
+            console.log('particles.json loaded...');
+        });
+    </script>
+    <script>
+        document.getElementById('file').onchange = function() {
+            document.getElementById('file-name').textContent = this.files[0].name;
+        }
+    </script>
+
 </body>
 </html>
