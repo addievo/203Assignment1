@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Word Count</title>
+</head>
+<body>
+    <h1>Word Count</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit" value="Upload">
+    </form>
+
+    {% if sorted_words %}
+        <h2>Results</h2>
+        <ul>
+        {% for word, count in sorted_words %}
+            <li>{{ word }}: {{ count }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>

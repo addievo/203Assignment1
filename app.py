@@ -6,10 +6,15 @@ from werkzeug.utils import secure_filename
 from flask import Flask, request, render_template, flash, redirect, url_for
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'uploads')
+
+if not os.path.exists(app.config['UPLOAD_FOLDER']):
+    os.makedirs(app.config['UPLOAD_FOLDER'])
 
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    sorted_words = None
     if request.method == 'POST':
         # Get the file from the POST request
         file = request.files['file']
@@ -29,18 +34,9 @@ def index():
             word_counts = count_words(all_words)
             sorted_words = sort_words(word_counts)
 
-            # Render the results
-            return render_template('results.html', sorted_words=sorted_words)
 
-        # If no file was provided or if it had the wrong extension,
-        # flash an error message and redirect the user back to the form
-        else:
-            flash('Please upload a .txt file.')
-            return redirect(url_for('index'))
-
-    # For GET requests, render the form
-    else:
-        return render_template('upload.html')
+    # For both GET and POST requests, render the form and results (if any)
+    return render_template('index.html', sorted_words=sorted_words)
 
 
 if __name__ == '__main__':
