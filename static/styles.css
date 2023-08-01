@@ -74,7 +74,6 @@ label[for="file"]:hover {
 
 
 input[type="submit"] {
-    display: inline-block;
     padding: 0.8rem 1.5rem;
     transition: all 0.3s;
     border-radius: 3px;
@@ -85,6 +84,7 @@ input[type="submit"] {
     border: 2px solid #3b82f6;
     text-decoration: none; /* Remove underline from buttons */
     z-index: 3;
+    visibility: hidden;
 }
 
 input[type="submit"]:hover {

@@ -20,10 +20,12 @@
     <h1>Word Count</h1>
 
     <form method="POST" enctype="multipart/form-data">
-        <label for="file">Choose file</label>
-        <input type="file" id="file" name="file">
-        <span id="file-name"></span>
-        <input type="submit" value="Upload">
+        <div>
+            <input type="file" id="file" name="file" style="display: none;" onchange="handleFileSelect()">
+            <label for="file" id="file-label">Choose file</label>
+            <span id="file-name"></span>
+        </div>
+        <input id="submit-button" type="submit" value="Upload" style="visibility: hidden;">
     </form>
 
     <h1>Top 10 Words</h1>
@@ -35,15 +37,22 @@
         {% for word, count in bottom_words %}
         <p>{{ word }}: {{ count }}</p>
         {% endfor %}
+
+    <script>
+    function handleFileSelect() {
+        var fileNameLabel = document.getElementById('file-name');
+        var submitButton = document.getElementById('submit-button');
+        var fileInput = document.getElementById('file');
+        if(fileInput.files.length > 0) {
+            fileNameLabel.textContent = fileInput.files[0].name;
+            submitButton.style.visibility = 'visible';  // Show the submit button
+        }
+    }
+    </script>
     <script>
         particlesJS.load('particles-js', '/static/particles.json', function() {
             console.log('particles.json loaded...');
         });
-    </script>
-    <script>
-        document.getElementById('file').onchange = function() {
-            document.getElementById('file-name').textContent = this.files[0].name;
-        }
     </script>
 
 </body>
