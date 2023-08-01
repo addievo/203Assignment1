@@ -34,9 +34,12 @@ def index():
             word_counts = count_words(all_words)
             sorted_words = sort_words(word_counts)
 
+            top_words = sorted_words[:10]
+            bottom_words = sorted_words[-10:]
+
 
     # For both GET and POST requests, render the form and results (if any)
-    return render_template('index.html', sorted_words=sorted_words)
+    return render_template('index.html', top_words=top_words, bottom_words=bottom_words)
 
 
 if __name__ == '__main__':
