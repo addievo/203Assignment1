@@ -60,9 +60,9 @@ def quicksort(arr):
     # Choose the middle element as the pivot
     pivot = arr[len(arr) // 2]
     # Partition the list into three parts: elements less than, equal to, and greater than the pivot
-    left = [x for x in arr if x[1] < pivot[1] or (x[1] == pivot[1] and x[0] < pivot[0])]
-    middle = [x for x in arr if x == pivot]
-    right = [x for x in arr if x[1] > pivot[1] or (x[1] == pivot[1] and x[0] > pivot[0])]
+    left = [x for x in arr if x[1] > pivot[1] or (x[1] == pivot[1] and x[0] < pivot[0])]
+    middle = [x for x in arr if x[1] == pivot[1] and x[0] == pivot[0]]
+    right = [x for x in arr if x[1] < pivot[1] or (x[1] == pivot[1] and x[0] > pivot[0])]
     # Recursively sort the left and right parts, and concatenate the results
     return quicksort(left) + middle + quicksort(right)
 
@@ -108,19 +108,20 @@ def main():
 
     # Print the 10 most common words
     print("The 10 most common words are:")
-    for word, count in sorted_words[-10:]:
+    for word, count in sorted_words[:10]:
         print(f"{word}: {count}")
 
     # Print the 10 least common words
     print("\nThe 10 least common words are:")
-    for word, count in sorted_words[:10]:
-        print(f"{word}: {count}")
 
+    for word, count in sorted_words[-10:]:
+        print(f"{word}: {count}")
     # Print the unique words that occur only once
     print("\nThe unique words that occur only once:")
     for word, count in sorted_words:
         if count == 1:
             print(f"{word}: {count}")
+
 
 # Execute the main function if the script is run as a standalone program
 if __name__ == '__main__':
